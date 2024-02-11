@@ -429,48 +429,6 @@ plt.show()
 Matplotlib y Seaborn son herramientas poderosas para la visualización de datos en Python. Mientras que Matplotlib proporciona un control detallado sobre la apariencia de los gráficos, Seaborn simplifica la creación de gráficos atractivos y estadísticamente informativos. La elección entre ellas depende de los requisitos específicos del proyecto y las preferencias de diseño.
 ```
 
-### Matplotlib Resultado
-
-### Seaborn
-
-### ¿Qué es Seaborn? 🚀
-
-Seaborn es una biblioteca de visualización de datos basada en Matplotlib que proporciona una interfaz de alto nivel para crear gráficos informativos y atractivos. Está diseñada para trabajar bien con estructuras de datos estadísticos y DataFrames.
-
-### ¿Por qué es Importante? 🤔
-
-- Estilo Atractivo: Seaborn viene con estilos visuales atractivos y paletas de colores predeterminadas que mejoran la estética de los gráficos.
--Facilidad de Uso: Ofrece funciones simplificadas para crear gráficos estadísticos complejos con líneas mínimas de código.
--Compatibilidad con Pandas: Se integra perfectamente con Pandas, facilitando la visualización de datos almacenados en DataFrames.
-
-### Ejemplo Práctico
-
-```python
-import seaborn as sns
-
-# Datos de ejemplo
-data = sns.load_dataset('iris')
-
-# Crear un diagrama de dispersión
-sns.scatterplot(x='sepal_length', y='sepal_width', hue='species', data=data)
-
-# Añadir etiquetas y título
-plt.xlabel('Longitud del Sépalo')
-plt.ylabel('Ancho del Sépalo')
-plt.title('Diagrama de Dispersión con Seaborn')
-
-# Mostrar el gráfico
-plt.show()
-```
-
-### Seaborn Resultado
-
-### Resumen 🌟
-
-```text
-Matplotlib y Seaborn son herramientas poderosas para la visualización de datos en Python. Mientras que Matplotlib proporciona un control detallado sobre la apariencia de los gráficos, Seaborn simplifica la creación de gráficos atractivos y estadísticamente informativos. La elección entre ellas depende de los requisitos específicos del proyecto y las preferencias de diseño.
-```
-
 ---
 
 ### Visualización con ggplot2 y ggthemes en R 📊
@@ -544,50 +502,50 @@ ggplot(data, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 ggplot2 y ggthemes son herramientas poderosas para la visualización de datos en R. Mientras que ggplot2 proporciona una estructura declarativa para crear gráficos complejos, ggthemes amplía las opciones visuales mediante la introducción de temas adicionales. Ambas bibliotecas se integran bien y permiten una personalización extensa de los gráficos en R.
 ```
 
-### Matplotlib Resultado
-
-### Seaborn
-
-### ¿Qué es Seaborn? 🚀
-
-Seaborn es una biblioteca de visualización de datos basada en Matplotlib que proporciona una interfaz de alto nivel para crear gráficos informativos y atractivos. Está diseñada para trabajar bien con estructuras de datos estadísticos y DataFrames.
-
-### ¿Por qué es Importante? 🤔
-
-- Estilo Atractivo: Seaborn viene con estilos visuales atractivos y paletas de colores predeterminadas que mejoran la estética de los gráficos.
--Facilidad de Uso: Ofrece funciones simplificadas para crear gráficos estadísticos complejos con líneas mínimas de código.
--Compatibilidad con Pandas: Se integra perfectamente con Pandas, facilitando la visualización de datos almacenados en DataFrames.
-
-### Ejemplo Práctico
-
-```python
-import seaborn as sns
-
-# Datos de ejemplo
-data = sns.load_dataset('iris')
-
-# Crear un diagrama de dispersión
-sns.scatterplot(x='sepal_length', y='sepal_width', hue='species', data=data)
-
-# Añadir etiquetas y título
-plt.xlabel('Longitud del Sépalo')
-plt.ylabel('Ancho del Sépalo')
-plt.title('Diagrama de Dispersión con Seaborn')
-
-# Mostrar el gráfico
-plt.show()
-```
-
-### Seaborn Resultado
-
-### Resumen 🌟
-
-```text
-Matplotlib y Seaborn son herramientas poderosas para la visualización de datos en Python. Mientras que Matplotlib proporciona un control detallado sobre la apariencia de los gráficos, Seaborn simplifica la creación de gráficos atractivos y estadísticamente informativos. La elección entre ellas depende de los requisitos específicos del proyecto y las preferencias de diseño.
-```
-
   </details></li>
     <li><details><summary> 📝 Limpieza de datos y manejo de valores nulos📚</summary>
+
+## Limpieza de Datos y Manejo de Valores Nulos 🧹
+
+### ¿Por qué es Importante la Limpieza de Datos?
+
+La limpieza de datos es un paso crucial en el proceso de ciencia de datos. Los conjuntos de datos suelen contener errores, valores atípicos y, lo que es más común, valores nulos que pueden afectar la calidad y confiabilidad del análisis. La limpieza de datos tiene como objetivo:
+
+- Mejorar la calidad de los datos.
+- Garantizar la coherencia y precisión de la información.
+- Facilitar el análisis y modelado de datos.
+
+### ¿Qué Son los Valores Nulos?
+
+Los valores nulos, también conocidos como valores faltantes o NaN (Not a Number), son elementos ausentes en un conjunto de datos. Pueden surgir por diversas razones, como errores de entrada, fallos en la recopilación de datos o simplemente porque la información no está disponible.
+
+### Manejo de Valores Nulos con Python:
+
+En Python, la biblioteca Pandas proporciona herramientas eficaces para el manejo de valores nulos.
+
+**Ejemplos Prácticos:**
+```python
+import pandas as pd
+
+# Crear un DataFrame con valores nulos
+data = {'A': [1, 2, None, 4], 'B': [5, None, 7, 8]}
+df = pd.DataFrame(data)
+
+# Identificar valores nulos
+print(df.isnull())
+
+# Eliminar filas con al menos un valor nulo
+df_cleaned = df.dropna()
+
+# Rellenar valores nulos con un valor específico
+df_filled = df.fillna(0)
+
+# Imputación de valores nulos utilizando la media
+df_imputed = df.fillna(df.mean())
+
+# Eliminar columnas con valores nulos
+df_no_null_columns = df.dropna(axis=1)
+```
 
   </details></li>
     <li><details><summary> 📦 Normalización y estandarización de datos🧠</summary>
