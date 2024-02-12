@@ -519,11 +519,12 @@ La limpieza de datos es un paso crucial en el proceso de ciencia de datos. Los c
 
 Los valores nulos, también conocidos como valores faltantes o NaN (Not a Number), son elementos ausentes en un conjunto de datos. Pueden surgir por diversas razones, como errores de entrada, fallos en la recopilación de datos o simplemente porque la información no está disponible.
 
-### Manejo de Valores Nulos con Python:
+### Manejo de Valores Nulos con Python
 
 En Python, la biblioteca Pandas proporciona herramientas eficaces para el manejo de valores nulos.
 
 **Ejemplos Prácticos:**
+
 ```python
 import pandas as pd
 
@@ -546,6 +547,51 @@ df_imputed = df.fillna(df.mean())
 # Eliminar columnas con valores nulos
 df_no_null_columns = df.dropna(axis=1)
 ```
+
+Python utilizando la biblioteca Pandas:
+
+Supongamos que tenemos un DataFrame llamado ventas que contiene información sobre las ventas de productos, pero algunos registros tienen valores nulos en la columna "Ingresos". Queremos manejar estos valores nulos de diferentes maneras.
+
+```python
+import pandas as pd
+
+# Crear un DataFrame de ejemplo
+data = {'Producto': ['A', 'B', 'C', 'D', 'E'],
+        'Ventas': [100, 150, 80, None, 200],
+        'Ingresos': [2000, None, 1500, None, 4000]}
+ventas = pd.DataFrame(data)
+
+# Mostrar el DataFrame original
+print("DataFrame Original:")
+print(ventas)
+
+# Identificar y contar valores nulos en cada columna
+print("\nValores Nulos:")
+print(ventas.isnull().sum())
+
+# Eliminar filas con valores nulos en la columna "Ingresos"
+ventas_dropna = ventas.dropna(subset=['Ingresos'])
+
+# Rellenar valores nulos en la columna "Ingresos" con cero
+ventas_fillna_zero = ventas.fillna({'Ingresos': 0})
+
+# Imputar valores nulos en la columna "Ingresos" con la media de la columna
+ingresos_mean = ventas['Ingresos'].mean()
+ventas_fillna_mean = ventas.fillna({'Ingresos': ingresos_mean})
+
+# Mostrar resultados
+print("\nDataFrame después de eliminar filas con valores nulos en 'Ingresos':")
+print(ventas_dropna)
+print("\nDataFrame después de rellenar valores nulos en 'Ingresos' con cero:")
+print(ventas_fillna_zero)
+print("\nDataFrame después de imputar valores nulos en 'Ingresos' con la media:")
+print(ventas_fillna_mean)
+```
+
+Este ejercicio te permite practicar diferentes técnicas de manejo de valores nulos en un DataFrame de Python utilizando Pandas. Puedes ejecutar este código en tu entorno de Python para ver cómo funcionan las diferentes estrategias de manejo de valores nulos.
+
+>[!Important]
+>La limpieza de datos y el manejo de valores nulos son aspectos críticos en el proceso de ciencia de datos. Tanto en Python con Pandas como en R con dplyr, hay herramientas disponibles para identificar, eliminar, rellenar e imputar valores nulos según las necesidades del análisis.
 
   </details></li>
     <li><details><summary> 📦 Normalización y estandarización de datos🧠</summary>
