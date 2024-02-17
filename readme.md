@@ -590,39 +590,468 @@ print(ventas_fillna_mean)
 
 Este ejercicio te permite practicar diferentes técnicas de manejo de valores nulos en un DataFrame de Python utilizando Pandas. Puedes ejecutar este código en tu entorno de Python para ver cómo funcionan las diferentes estrategias de manejo de valores nulos.
 
->[!Important]
+> [!IMPORTANT]
 >La limpieza de datos y el manejo de valores nulos son aspectos críticos en el proceso de ciencia de datos. Tanto en Python con Pandas como en R con dplyr, hay herramientas disponibles para identificar, eliminar, rellenar e imputar valores nulos según las necesidades del análisis.
 
   </details></li>
     <li><details><summary> 📦 Normalización y estandarización de datos🧠</summary>
+## Normalización y Estandarización de Datos 📦🧠
 
+### ¿Qué es la Normalización y la Estandarización de Datos?
+
+La normalización y la estandarización son técnicas utilizadas en el preprocesamiento de datos para modificar las características de los datos en un rango específico o para que tengan una distribución específica. Estas técnicas son especialmente útiles en algoritmos de aprendizaje automático que son sensibles a la escala de los datos.
+
+### Normalización de Datos
+
+La normalización de datos es el proceso de ajustar los valores de una variable para que se encuentren dentro de un rango específico, generalmente entre 0 y 1. Esto es útil cuando las características tienen diferentes escalas y queremos que todas tengan el mismo impacto en el modelo.
+
+La fórmula general para normalizar un valor \( x \) en un rango entre \( a \) y \( b \) es:
+
+\[
+x_{\text{norm}} = \frac{{x - \text{min}(X)}}{{\text{max}(X) - \text{min}(X)}} \times (b - a) + a
+\]
+
+donde \( X \) es el conjunto de valores de la variable que queremos normalizar.
+
+### Estandarización de Datos
+
+La estandarización de datos es el proceso de transformar los valores de una variable para que tengan una media de 0 y una desviación estándar de 1. Esto es útil cuando las características tienen diferentes escalas y queremos que todas tengan la misma escala.
+
+La fórmula para estandarizar un valor \( x \) es:
+
+\[
+x_{\text{std}} = \frac{{x - \text{mean}(X)}}{{\text{std}(X)}}
+\]
+
+donde \( X \) es el conjunto de valores de la variable que queremos estandarizar.
+
+### ¿Cuándo usar Normalización y Estandarización?
+
+- **Normalización:** Se utiliza cuando la distribución de los datos no es gaussiana (no se asume una distribución normal) o cuando se requiere que los datos estén en un rango específico.
+  
+- **Estandarización:** Se utiliza cuando la distribución de los datos es gaussiana y los algoritmos de aprendizaje automático asumen que las características están centradas alrededor de cero y tienen una desviación estándar similar.
+
+### Implementación en Python
+
+En Python, se pueden utilizar herramientas como Scikit-learn para normalizar y estandarizar datos.
+
+### Ejemplo de Normalización con Scikit-learn
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+
+# Crear un objeto MinMaxScaler
+scaler = MinMaxScaler()
+
+# Normalizar los datos
+X_normalized = scaler.fit_transform(X)
+```
+
+### Ejemplo de Estandarización con Scikit-learn
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+# Crear un objeto StandardScaler
+scaler = StandardScaler()
+
+# Estandarizar los datos
+X_standardized = scaler.fit_transform(X)
+```
+
+Estandarización de datos en R utilizando el paquete scale:
+
+```R
+# Crear un dataframe de ejemplo
+ventas <- data.frame(
+  Producto = c('A', 'B', 'C', 'D', 'E'),
+  Ventas = c(100, 150, 80, NA, 200),
+  Ingresos = c(2000, NA, 1500, NA, 4000)
+)
+
+# Mostrar el dataframe original
+print("DataFrame Original:")
+print(ventas)
+
+# Aplicar estandarización a las columnas Ventas e Ingresos
+ventas_scaled <- as.data.frame(scale(ventas[, c("Ventas", "Ingresos")], center = TRUE, scale = TRUE))
+
+# Agregar la columna Producto al dataframe escalado
+ventas_scaled$Producto <- ventas$Producto
+
+# Mostrar el dataframe escalado
+print("\nDataFrame Estandarizado:")
+print(ventas_scaled)
+```
+
+En este ejemplo, creamos un dataframe de ventas con dos columnas, "Ventas" e "Ingresos". Luego, utilizamos la función scale para estandarizar las columnas seleccionadas, centrándolas alrededor de su media y escalándolas por su desviación estándar. Finalmente, agregamos la columna "Producto" al dataframe escalado para mantener la información completa.
+
+Aquí tienes un ejemplo de cómo realizar la normalización de datos en R utilizando la función scale():
+
+```R
+# Crear un dataframe de ejemplo
+ventas <- data.frame(
+  Producto = c('A', 'B', 'C', 'D', 'E'),
+  Ventas = c(100, 150, 80, NA, 200),
+  Ingresos = c(2000, NA, 1500, NA, 4000)
+)
+
+# Mostrar el dataframe original
+print("DataFrame Original:")
+print(ventas)
+
+# Función de normalización personalizada
+normalize <- function(x) {
+  return((x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)))
+}
+
+# Aplicar normalización a las columnas Ventas e Ingresos
+ventas_normalized <- ventas
+ventas_normalized[, c("Ventas", "Ingresos")] <- lapply(ventas_normalized[, c("Ventas", "Ingresos")], normalize)
+
+# Mostrar el dataframe normalizado
+print("\nDataFrame Normalizado:")
+print(ventas_normalized)
+```
+
+En este ejemplo, creamos un dataframe de ventas con dos columnas, "Ventas" e "Ingresos". Luego, definimos una función normalize que normaliza los datos de una columna específica. Utilizamos esta función junto con lapply() para aplicar la normalización a las columnas seleccionadas del dataframe. Finalmente, mostramos el dataframe con los datos normalizados.
+
+>[!IMPORTANT]
+>Estos son los conceptos básicos sobre la normalización y la estandarización de datos. Al aplicar estas técnicas, podemos asegurarnos de que los datos estén en un formato adecuado para el análisis y la modelización en el contexto de la ciencia de datos y el aprendizaje automático.
   </details></li>
   </ol>
 </details>
 
 <details><summary>Módulo 3: Estadísticas y Probabilidades en Ciencia de Datos 📊🤓</summary>
   <ol>
-    <li><details><summary> 📉 Medidas de tendencia central y dispersión 📈</summary></details></li>
-    <li><details><summary> 📊 Distribuciones de probabilidad 📊</summary></details></li>
-    <li><details><summary> 📈 Correlación y covarianza 📚</summary></details></li>
-    <li><details><summary> 📚 Teorema del límite central 🧠</summary></details></li>
+   <details>
+    <summary>Medidas de tendencia central (media, mediana, moda) 📊</summary>
+    <p>
+        Las medidas de tendencia central son estadísticas descriptivas que representan el centro de un conjunto de datos. Estas medidas incluyen:
+        <ul>
+            <li>Media: Es el promedio de todos los valores en el conjunto de datos.</li>
+            <li>Mediana: Es el valor que se encuentra en el centro del conjunto de datos cuando están ordenados de menor a mayor.</li>
+            <li>Moda: Es el valor que aparece con mayor frecuencia en el conjunto de datos.</li>
+        </ul>
+    </p>
+</details>
+
+<details>
+    <summary>Medidas de dispersión (varianza, desviación estándar) 📊</summary>
+    <p>
+        Las medidas de dispersión son estadísticas descriptivas que indican la variabilidad o dispersión de los datos en torno a su centro. Estas medidas incluyen:
+        <ul>
+            <li>Varianza: Es la medida de dispersión que representa la variabilidad promedio de los datos con respecto a la media.</li>
+            <li>Desviación Estándar: Es la raíz cuadrada de la varianza y representa la dispersión promedio de los datos con respecto a la media.</li>
+        </ul>
+    </p>
+</details>
+
+<details>
+    <summary>Distribuciones de probabilidad (normal, binomial, Poisson) 📊</summary>
+    <p>
+        Las distribuciones de probabilidad son modelos matemáticos que describen la ocurrencia de eventos aleatorios. Algunas distribuciones comunes incluyen:
+        <ul>
+            <li>Normal: Se utiliza para describir variables continuas y simétricas alrededor de su media.</li>
+            <li>Binomial: Se utiliza para describir el número de éxitos en una serie de ensayos de Bernoulli independientes.</li>
+            <li>Poisson: Se utiliza para describir el número de eventos que ocurren en un intervalo de tiempo o espacio específico.</li>
+        </ul>
+    </p>
+</details>
+
+<details>
+    <summary>Pruebas de hipótesis y intervalos de confianza 📊</summary>
+    <p>
+        Las pruebas de hipótesis y los intervalos de confianza son herramientas estadísticas utilizadas para realizar inferencias sobre una población basadas en una muestra de datos. Las pruebas de hipótesis se utilizan para determinar si hay evidencia suficiente para rechazar o no una afirmación sobre la población, mientras que los intervalos de confianza proporcionan un rango de valores estimados para un parámetro poblacional con un cierto nivel de confianza.
+    </p>
+</details>
+
+<details>
+    <summary>Regresión lineal y correlación 📊</summary>
+    <p>
+        La regresión lineal y la correlación son técnicas utilizadas para estudiar la relación entre dos variables. La regresión lineal se utiliza para modelar la relación entre una variable independiente y una variable dependiente, mientras que la correlación se utiliza para medir la fuerza y la dirección de la relación entre dos variables. Ambas técnicas son útiles para hacer predicciones y comprender la naturaleza de la relación entre variables en un conjunto de datos.
+    </p>
+</details>
+
+### Ejemplos Prácticos en R
+
+Ejemplo de Cálculo de Medidas de Tendencia Central y Dispersión:
+
+```R
+# Crear un vector de datos de ejemplo
+datos <- c(10, 20, 30, 40, 50)
+
+# Calcular la media
+media <- mean(datos)
+
+# Calcular la mediana
+mediana <- median(datos)
+
+# Calcular la desviación estándar
+desviacion_estandar <- sd(datos)
+
+# Mostrar los resultados
+print(paste("Media:", media))
+print(paste("Mediana:", mediana))
+print(paste("Desviación Estándar:", desviacion_estandar))
+```
+
+Ejemplo de Distribución de Probabilidad Normal:
+
+```R
+# Generar datos de una distribución normal
+datos_normales <- rnorm(1000, mean = 0, sd = 1)
+
+# Crear un histograma de los datos
+hist(datos_normales, breaks = 30, main = "Distribución Normal", xlab = "Valor", ylab = "Frecuencia")
+
+```
+
+### Ejemplos Prácticos en Python
+
+Ejemplo de Cálculo de Medidas de Tendencia Central y Dispersión:
+
+```PYTHON
+# Importar la biblioteca numpy
+import numpy as np
+
+# Crear un array de datos de ejemplo
+datos = np.array([10, 20, 30, 40, 50])
+
+# Calcular la media
+media = np.mean(datos)
+
+# Calcular la mediana
+mediana = np.median(datos)
+
+# Calcular la desviación estándar
+desviacion_estandar = np.std(datos)
+
+# Mostrar los resultados
+print("Media:", media)
+print("Mediana:", mediana)
+print("Desviación Estándar:", desviacion_estandar)
+```
+
+Ejemplo de Distribución de Probabilidad Normal:
+
+```PYTHON
+# Importar la biblioteca matplotlib
+import matplotlib.pyplot as plt
+
+# Generar datos de una distribución normal
+datos_normales = np.random.normal(loc=0, scale=1, size=1000)
+
+# Crear un histograma de los datos
+plt.hist(datos_normales, bins=30, edgecolor='black')
+plt.title('Distribución Normal')
+plt.xlabel('Valor')
+plt.ylabel('Frecuencia')
+plt.show()
+```
+
   </ol>
 </details>
 
-<details><summary>Módulo 4: Modelado Predictivo y Aprendizaje Supervisado 🔭📉</summary>
-  <ol>
-    <li><details><summary> 🛠️ Introducción al aprendizaje supervisado 📉</summary></details></li>
-    <li><details><summary> 🧠 Algoritmos de regresión y clasificación 📊</summary></details></li>
-    <li><details><summary> 🕵️ Evaluación de modelos y métricas 📈</summary></details></li>
-    <li><details><summary> 🔄 Manejo de desbalanceo y ajuste de hiperparámetros 📚 </summary></details></li>
+<details>
+    <summary>Módulo 4: Modelado Predictivo y Aprendizaje Supervisado 🔭📉</summary>
+    <ol>
+        <li>
+            <details>
+                <summary> 🛠️ Introducción al aprendizaje supervisado 📉</summary>
+                <p>
+                    El aprendizaje supervisado es una técnica de modelado predictivo en la que se entrena un modelo utilizando un conjunto de datos etiquetados. En este enfoque, el modelo aprende a realizar predicciones a partir de ejemplos de entrada y salida previamente conocidos. Las aplicaciones del aprendizaje supervisado son diversas y abarcan campos como la medicina, la industria financiera, la publicidad en línea, entre otros. Por ejemplo, en medicina, se puede utilizar para predecir el riesgo de enfermedades en función de los síntomas de un paciente, mientras que en la industria financiera, se puede aplicar para predecir el rendimiento futuro de acciones o el comportamiento del mercado.
+                </p>
+
+```Python
+# Importar librerías necesarias
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn import datasets
+
+# Cargar el conjunto de datos de iris
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+# Dividir el conjunto de datos en entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Inicializar y entrenar el modelo de regresión logística
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Calcular la precisión del modelo en el conjunto de prueba
+accuracy = model.score(X_test, y_test)
+print("Precisión del modelo:", accuracy)
+```
+
+Este ejemplo utiliza el conjunto de datos Iris para realizar una clasificación de las especies de flores utilizando el algoritmo de regresión logística. El conjunto de datos se divide en un conjunto de entrenamiento y un conjunto de prueba, luego se entrena el modelo de regresión logística utilizando el conjunto de entrenamiento y se evalúa su precisión en el conjunto de prueba.
+
+En R
+
+```R
+# Cargar la librería necesaria
+library(datasets)
+
+# Cargar el conjunto de datos de iris
+data(iris)
+
+# Dividir el conjunto de datos en entrenamiento y prueba
+set.seed(42)
+train_indices <- sample(1:nrow(iris), 0.8 * nrow(iris))
+train_data <- iris[train_indices, ]
+test_data <- iris[-train_indices, ]
+
+# Crear y entrenar el modelo de regresión logística
+model <- glm(Species ~ ., data = train_data, family = binomial)
+
+# Predecir las clases en el conjunto de prueba
+predictions <- predict(model, newdata = test_data, type = "response")
+predicted_classes <- ifelse(predictions > 0.5, "versicolor", "setosa")
+
+# Calcular la precisión del modelo en el conjunto de prueba
+accuracy <- mean(predicted_classes == test_data$Species)
+print(paste("Precisión del modelo:", accuracy))
+```
+
+Este ejemplo utiliza el conjunto de datos Iris para realizar una clasificación de las especies de flores utilizando el algoritmo de regresión logística. El conjunto de datos se divide en un conjunto de entrenamiento y un conjunto de prueba, luego se crea y entrena el modelo de regresión logística utilizando el conjunto de entrenamiento. Finalmente, se realizan predicciones en el conjunto de prueba y se calcula la precisión del modelo.
+</details>
+        </li>
+    <li><details><summary> 🧠 Algoritmos de regresión y clasificación 📊</summary>
+
+Los algoritmos de **regresión** se utilizan para predecir valores numéricos continuos, como por ejemplo, predecir el precio de una casa en función de sus características.
+
+Los algoritmos de **clasificación** se utilizan para clasificar datos en categorías o clases diferentes, como por ejemplo, predecir si un correo electrónico es spam o no.
+
+Estos algoritmos son fundamentales en el análisis de datos y en la toma de decisiones basadas en datos en una amplia gama de aplicaciones, desde la medicina hasta las finanzas.
+
+Algunos ejemplos de estos algoritmos
+<ul><details><summary>  Regresión lineal: </summary>Utilizado para modelar la relación entre una variable dependiente y una o más variables independientes mediante una línea recta. </details></ul>
+<ul><details><summary>  Regresión logística: </summary>Utilizado para problemas de clasificación binaria, donde se estima la probabilidad de que una instancia pertenezca a una de las dos clases.
+</details></ul>
+<ul><details><summary>  Regresión polinomial: </summary>
+Extensión de la regresión lineal que permite ajustar relaciones no lineales mediante polinomios de grado superior.
+</details></ul>
+<ul><details><summary>  Regresión de vecinos más cercanos (KNN): </summary>Algoritmo simple utilizado para la regresión donde se predice el valor de una instancia basándose en los valores de sus vecinos más cercanos.
+</details></ul>
+<ul><details><summary>  Máquinas de vectores de soporte (SVM): </summary>Utilizado para problemas de regresión y clasificación, busca encontrar el hiperplano que mejor separa los datos.
+</details></ul>
+<ul><details><summary>  Árboles de decisión: </summary>Modelo que divide el conjunto de datos en subconjuntos más pequeños basándose en características particulares para predecir la variable objetivo.
+</details></ul>
+<ul><details><summary>  Bosques aleatorios: </summary>Ensamble de árboles de decisión que promedia las predicciones de múltiples árboles para mejorar la precisión y evitar el sobreajuste.
+</details></ul>
+ <ul><details><summary>  Gradient Boosting Machines (GBM): </summary>Técnica de ensamblaje que combina múltiples modelos débiles secuencialmente, cada uno corrigiendo los errores del modelo anterior.
+</details></ul>
+<ul><details><summary>  Redes neuronales artificiales (ANN): </summary>Modelos de aprendizaje profundo que imitan el funcionamiento del cerebro humano, compuestos por capas de neuronas interconectadas.
+</details></ul>
+
+Algunos algoritmos de clasificación pueden ser;
+<ul><details><summary>  Naive Bayes: </summary>Utilizado para problemas de clasificación, asume independencia entre las características y estima la probabilidad de pertenencia a una clase dada las características observadas.
+</details></ul>
+<ul><details><summary>  K-Nearest Neighbors (KNN): </summary>Algoritmo simple utilizado para la clasificación donde se asigna una instancia a la clase más común entre sus vecinos más cercanos en el espacio de características.
+</details></ul>
+<ul><details><summary>  Support Vector Machines (SVM): </summary>Utilizado para problemas de clasificación, busca encontrar el hiperplano que mejor separa las clases en el espacio de características.
+</details></ul>
+<ul><details><summary>  Decision Trees: </summary>Modelo que divide el conjunto de datos en subconjuntos más pequeños basándose en características particulares para clasificar las instancias en categorías.
+</details></ul>
+<ul><details><summary>  Random Forests: </summary>Ensamble de árboles de decisión que promedia las predicciones de múltiples árboles para mejorar la precisión y evitar el sobreajuste en problemas de clasificación.
+</details></ul>
+<ul><details><summary>  Gradient Boosting Machines (GBM): </summary>Técnica de ensamblaje que combina múltiples modelos débiles secuencialmente, cada uno corrigiendo los errores del modelo anterior, utilizado para clasificación.
+</details></ul>
+<ul><details><summary>  AdaBoost: </summary>Algoritmo de ensamblaje que combina múltiples modelos débiles para mejorar la precisión de la clasificación, dando más peso a las instancias clasificadas incorrectamente.
+</details></ul>
+<ul><details><summary>  Máquinas de Vectores de Soporte (SVM): </summary>Utilizado tanto para problemas de clasificación como de regresión, busca encontrar el hiperplano que mejor separa las clases o que mejor ajusta los datos.
+</details></ul>
+    </details></li>
+    <li><details><summary> 🕵️ Evaluación de modelos y métricas 📈</summary>
+     <p>
+        LLos modelos y las métricas son conceptos diferentes pero relacionados en el campo del aprendizaje automático y la inteligencia artificial:
+
+<details><summary> Modelos: </summary>
+ Los modelos son algoritmos o sistemas que se construyen utilizando datos de entrenamiento para hacer predicciones o tomar decisiones sobre nuevos datos. Por ejemplo, un modelo de regresión lineal, un clasificador de árbol de decisión o una red neuronal son ejemplos de modelos.
+</details>
+
+<details><summary>Métricas: </summary>
+Las métricas son medidas utilizadas para evaluar el rendimiento de un modelo. Estas métricas proporcionan una forma de cuantificar qué tan bien o mal está funcionando el modelo en una tarea específica.
+
+Algunas de las métricas comunes utilizadas para evaluar modelos incluyen:
+        <ul>
+            <li><b>Precisión:</b> Proporción de predicciones correctas sobre el total de predicciones.</li>
+            <li><b>Recall (Sensibilidad):</b> Proporción de instancias positivas que fueron correctamente identificadas por el modelo.</li>
+            <li><b>Especificidad:</b> Proporción de instancias negativas que fueron correctamente identificadas por el modelo.</li>
+            <li><b>Puntaje F1:</b> Media armónica entre precisión y recall, útil cuando hay un desequilibrio entre las clases.</li>
+            <li><b>ROC-AUC:</b> Área bajo la curva ROC, que mide la capacidad del modelo para distinguir entre clases.</li>
+            <li><b>Error cuadrático medio (MSE):</b> Promedio de los cuadrados de las diferencias entre las predicciones del modelo y los valores reales.</li>
+            <li><b>R-cuadrado (R²):</b> Proporción de la varianza en la variable dependiente que es predecible a partir de la variable independiente.</li>
+        </ul>
+        Es importante seleccionar las métricas adecuadas para el tipo de problema que se está abordando y comprender su significado en el contexto específico del dominio.
+    </p>
+</details>
+    </details></li>
+    <li><details><summary> 🔄 Manejo de desbalanceo y ajuste de hiperparámetros 📚 </summary>
+     <p>
+        El manejo de desbalanceo y el ajuste de hiperparámetros son dos aspectos importantes en el desarrollo de modelos de machine learning que pueden afectar significativamente su rendimiento y generalización.
+        <details>
+<summary>Manejo de desbalanceo 🔄</summary>
+
+En muchos problemas de clasificación, los datos pueden estar desbalanceados, lo que significa que hay una gran diferencia en la cantidad de ejemplos disponibles para cada clase. Esto puede llevar a que el modelo tenga dificultades para aprender de manera efectiva las clases minoritarias. El manejo de desbalanceo incluye técnicas como el submuestreo, sobremuestreo, generación de datos sintéticos (por ejemplo, SMOTE), y la aplicación de pesos diferentes a las clases para abordar este problema y mejorar el rendimiento del modelo en clases minoritarias.
+</details>
+
+<details>
+<summary>Ajuste de hiperparámetros 📚</summary>
+
+Los hiperparámetros son parámetros que no se aprenden directamente del modelo durante el entrenamiento, sino que se configuran antes del entrenamiento y afectan el comportamiento del modelo. Ejemplos comunes de hiperparámetros incluyen la tasa de aprendizaje, la profundidad máxima de un árbol de decisión, el número de vecinos en KNN, entre otros. El ajuste de hiperparámetros implica encontrar la combinación óptima de valores para estos hiperparámetros que maximice el rendimiento del modelo en un conjunto de datos de validación o prueba. Esto se puede hacer mediante técnicas como búsqueda grid, búsqueda aleatoria, optimización bayesiana, entre otros métodos de búsqueda.
+</details>
+    </p>
+    </details></li>
   </ol>
 </details>
 
 <details><summary>Módulo 5: Aprendizaje No Supervisado y Clustering 🤖📊</summary>
+El aprendizaje no supervisado y el clustering son áreas fundamentales en ciencia de datos para descubrir patrones en datos sin etiquetas predefinidas. Son herramientas poderosas para explorar y comprender conjuntos de datos complejos.
+
   <ol>
-    <li><details><summary> 🤖 Introducción al aprendizaje no supervisado🛠️</summary></details></li>
-    <li><details><summary> 📊 Algoritmos de clustering (K-means, DBSCAN)🧠</summary></details></li>
-    <li><details><summary> 📉 Reducción de dimensionalidad (PCA)🕵️</summary></details></li>
+    <li><details><summary> 🤖 Introducción al aprendizaje no supervisado🛠️</summary>
+       <p>
+        El aprendizaje no supervisado es una rama del machine learning que se enfoca en extraer patrones y estructuras interesantes de conjuntos de datos que no tienen etiquetas predefinidas. A diferencia del aprendizaje supervisado, donde los modelos se entrenan con datos etiquetados para predecir salidas específicas, el aprendizaje no supervisado busca descubrir la estructura intrínseca de los datos sin la guía de etiquetas externas.
+        <br>
+        <br>
+        Los algoritmos de aprendizaje no supervisado se utilizan para tareas com
+        o la reducción de dimensionalidad, la detección de anomalías, la segmentación de datos y la generación de características. Algunos de los algoritmos comunes incluyen la agrupación (clustering), la reducción de dimensionalidad (PCA, t-SNE), y la detección de anomalías (DBSCAN, Isolation Forest).
+        <br>
+        <br>
+        El aprendizaje no supervisado es fundamental en la exploración y comprensión de grandes conjuntos de datos donde las relaciones entre las variables pueden ser complejas y no lineales. Es una herramienta poderosa para descubrir información oculta y patrones emergentes que pueden ser útiles en una variedad de aplicaciones en ciencia de datos.
+    </p>
+    </details></li>
+    <li><details><summary> 📊 Algoritmos de clustering (K-means, DBSCAN)🧠</summary>
+    <details>
+<summary>Algoritmos de clustering 🧠</summary>
+
+Los algoritmos de clustering son técnicas de aprendizaje no supervisado que se utilizan para agrupar datos similares en conjuntos llamados "clusters".
+
+1. **K-means**:
+   - **Funcionamiento**: Este algoritmo agrupa los datos en k clusters, donde k es un número predefinido por el usuario.
+   - **Aplicaciones**: K-means es ampliamente utilizado en la segmentación de clientes, análisis de mercado, compresión de imágenes y agrupamiento de documentos, entre otras aplicaciones.
+
+2. **DBSCAN (Density-Based Spatial Clustering of Applications with Noise)**:
+   - **Funcionamiento**: DBSCAN es un algoritmo de clustering basado en la densidad que agrupa los puntos de datos en regiones de alta densidad.
+   - **Aplicaciones**: DBSCAN es útil para la detección de anomalías, la segmentación de imágenes, la agrupación de puntos de interés en sistemas de navegación, entre otras aplicaciones donde se necesita una agrupación basada en densidad.
+
+Estos algoritmos son fundamentales en el análisis exploratorio de datos y en la identificación de patrones útiles en conjuntos de datos no etiquetados.
+</details>
+    </details></li>
+    <li><details><summary> 📉 Reducción de dimensionalidad (PCA)🕵️</summary>
+La reducción de dimensionalidad es una técnica utilizada en el aprendizaje automático para reducir el número de variables o características en un conjunto de datos. Esto puede ser útil para simplificar la complejidad de los datos y eliminar el ruido, lo que puede mejorar el rendimiento del modelo y acelerar los algoritmos de entrenamiento.
+
+**PCA (Principal Component Analysis)**:
+
+- **Funcionamiento**: PCA es un algoritmo de reducción de dimensionalidad que busca proyectar los datos originales en un nuevo espacio dimensional de menor dimensión, manteniendo la mayor cantidad posible de la varianza de los datos. Esto se logra encontrando los componentes principales, que son las direcciones de máxima variación en los datos.
+- **Aplicaciones**: PCA se utiliza comúnmente para visualización de datos, compresión de imágenes, eliminación de ruido en señales, reducción de la dimensionalidad en conjuntos de datos de alta dimensionalidad, entre otros.
+
+PCA es una técnica poderosa que puede ayudar a simplificar y comprender datos complejos al tiempo que conserva la mayor cantidad posible de información importante.
+    </details></li>
     <li><details><summary> 🧐 Evaluación de técnicas no supervisadas🔄</summary></details></li>
   </ol>
 </details>
